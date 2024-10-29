@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Award Page</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #0b0b0b; /* Darker background */
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            color: #ffffff; /* Light text color */
+            background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            padding: 20px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+        }
+
+        h1 {
+            font-size: 3em;
+            animation: fadeIn 1s;
+        }
+
+        p {
+            font-size: 1.5em;
+            animation: fadeIn 1.5s;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: #ffffff; /* White text for better contrast */
+            background-color: #463e3d; /* Button color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Transition for background color and transform */
+            animation: pulse 1s infinite; /* Pulsing animation */
+        }
+
+        button:hover {
+            background-color: #303030; /* Darker button on hover */
+            transform: scale(1.1); /* Scale up on hover */
+        }
+
+        button:active {
+            transform: scale(2.95); /* Scale down on click */
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        #sparkles {
+            position: fixed; /* Change to fixed to cover the entire viewport */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: gold; /* Sparkle color */
+            border-radius: 50%;
+            box-shadow: 0 0 10px gold;
+            animation: fallAnimation 2s linear forwards; /* Fall animation */
+        }
+
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }    
+    </style>
+</head>
+<body>
+    <div id="sparkles"></div> <!-- Moved outside the container -->
+    <div class="container">
+        <h1>Congratulations!</h1>
+        <p>You did it!</p>
+        <button id="sparkleButton">Celebrate it!</button>
+    </div>
+    
+    <script>
+        document.getElementById('sparkleButton').addEventListener('click', function() {
+            createSparkles(30); // Create 30 sparkles
+        });
+
+        function createSparkles(count) {
+            const sparklesContainer = document.getElementById('sparkles');
+            for (let i = 0; i < count; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                sparkle.style.animationDuration = (Math.random() * 1 + 1) + 's'; // Random duration between 1s and 2s
+                sparklesContainer.appendChild(sparkle);
+                
+                sparkle.addEventListener('animationend', () => {
+                    sparkle.remove(); // Remove sparkle after the animation ends
+                });
+            }
+        }
+    </script>
+</body>
+</html>
